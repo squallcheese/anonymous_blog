@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>The Anonymous Blog</h1>
+
+  <div class="controls">
+  <button id="return"><a href="/">Return</a></button>
+  <button id="edit"><a href="/post/<%= @post.id %>/edit">Edit</a></button>
+  <form id="delete" action="/post/<%= @post.id %>/delete" method="post">
+  <input type="submit" value="Delete">
+  </form>
+</div>
+
+<h2><%= @post.post_title %></h2>
+<p>
+<%= @post.post_text %>
+</p>
+
+<p>
+Tags: <% @post.tags.each_with_index do |tag, i| %>
+<%= tag.tag_text %>
+<% unless i == @post.tags.size - 1%>
+,
+<% end %>
+<% end %>
+</p>
+
+</div>

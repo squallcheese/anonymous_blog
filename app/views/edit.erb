@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>The Anonymous Blog</h1>
+
+  <form action='/post/<%= @post.id %>/save' method='post'>
+    <input name="post_title" type="text" value="<%=@post.post_title%>">
+      <textarea name="post_text"><%=@post.post_text%></textarea>
+      <% Tag.all.each_with_index do |tag, i| %>
+      <input name=<%="tags[" + tag.tag_text + "]"%> type="checkbox" > <%=tag.tag_text%>
+      <% end %>
+      <input type="submit" value="Submit">
+    </form>
+
+</div>

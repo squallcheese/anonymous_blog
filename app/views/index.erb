@@ -1,23 +1,33 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
+  <h1>The Anonymous Blog</h1>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
+  <div class="create_post">
+  <button id="create_post">Create new</button>
+
+  <form action="/post/new_post" method="post">
+  <input name="post_title" type="text" placeholder="Title">
+  <textarea name="post_text"></textarea>
+  <% Tag.all.each_with_index do |tag, i| %>
+    <input name=<%="tags[" + tag.tag_text + "]"%> type="checkbox" > <%=tag.tag_text%>
+    <% end %>
+    <input type="submit" value="Submit">
+
+  </form>
+</div>
+
+<h2>Search for Posts</h2>
+
+  <form action="/tags" method="post">
+  <% Tag.all.each_with_index do |tag, i| %>
+  <input name=<%="tags[" + tag.tag_text + "]"%> type="checkbox" > <%=tag.tag_text%>
+  <% end %>
+  <br><br>
+  <input type="submit" value="Filter">
+</form>
+
+<div class="posts">
+  <% @posts.each do |post| %>
+  <p><a href="/post/<%= post.id%>"><%= post.post_title %></a></p>
+<% end %>
+  </div>
 </div>
